@@ -30,12 +30,17 @@ app.post('/', function (req, res)
             {
                 /* Data To send PING is Found
                 */
+                var detailMsg = req.body.msg;
+                if(req.body.msg === "")
+                {
+                    detailMsg = "You GOT PING from " + req.body.ping_id 
+                }
                 helper.printLogDebug('will send ping to : ' + jsonData[0].token);
                 var dataToSend = 
                 {
                     to:jsonData[0].token,
                     title: "PING FIRE",
-                    detail: "You GOT PING from " + req.body.sender_id 
+                    detail: detailMsg
                 };
                 connFCM.post(dataToSend, function(status, callback)
                 {
